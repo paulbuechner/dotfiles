@@ -1,0 +1,145 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "upgrade": {
+    "source": "cdn",
+    "interval": "168h",
+    "auto": false,
+    "notice": false
+  },
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "options": {
+            "cache_duration": "none",
+            "display_host": false
+          },
+          "template": "{{ if .SSHSession }}\udb80\udf18 {{ end }}{{ .UserName }} ",
+          "foreground": "#E36464",
+          "type": "session",
+          "style": "plain"
+        },
+        {
+          "options": {
+            "cache_duration": "none"
+          },
+          "template": "in ",
+          "foreground": "#ffffff",
+          "type": "text",
+          "style": "plain"
+        },
+        {
+          "options": {
+            "cache_duration": "none",
+            "style": "full"
+          },
+          "template": "{{ .Path }} ",
+          "foreground": "#56B6C2",
+          "type": "path",
+          "style": "plain"
+        },
+        {
+          "options": {
+            "cache_duration": "none",
+            "fetch_status": true
+          },
+          "template": "<#ffffff>on</> {{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
+          "foreground": "#C678DD",
+          "type": "git",
+          "style": "plain"
+        },
+        {
+          "options": {
+            "cache_duration": "none",
+            "fetch_version": true
+          },
+          "template": "<#ffffff>via</> \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
+          "foreground": "#98C379",
+          "type": "node",
+          "style": "powerline"
+        },
+        {
+          "options": {
+            "cache_duration": "none",
+            "fetch_version": true
+          },
+          "template": "<#ffffff>via</> \udb81\udfd3 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "foreground": "#7FD5EA",
+          "type": "go",
+          "style": "powerline"
+        },
+        {
+          "options": {
+            "cache_duration": "none",
+            "display_default": true,
+            "display_mode": "context"
+          },
+          "template": "<#ffffff>via</> \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} ",
+          "foreground": "#3c87aa",
+          "type": "python",
+          "style": "plain"
+        },
+        {
+          "options": {
+            "cache_duration": "none",
+            "fetch_version": true
+          },
+          "template": "<#ffffff>via</> \ue791{{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "foreground": "#f44336",
+          "type": "ruby",
+          "style": "powerline"
+        },
+        {
+          "options": {
+            "cache_duration": "none",
+            "fetch_version": true
+          },
+          "template": "<#ffffff>via</> \ue738 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "foreground": "#ea2d2e",
+          "type": "java",
+          "style": "powerline"
+        },
+        {
+          "options": {
+            "cache_duration": "none",
+            "fetch_version": true
+          },
+          "template": "<#ffffff>via</> \ue624 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "foreground": "#4063D8",
+          "type": "julia",
+          "style": "powerline"
+        },
+        {
+          "options": {
+            "cache_duration": "none",
+            "threshold": 500
+          },
+          "template": "<#ffffff>took</> \udb81\udead{{ .FormattedMs }} ",
+          "foreground": "#f0db66",
+          "type": "executiontime",
+          "style": "powerline"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "options": {
+            "cache_duration": "none"
+          },
+          "template": "➜ ",
+          "foreground": "#62ED8B",
+          "type": "text",
+          "style": "plain"
+        }
+      ],
+      "newline": true
+    }
+  ],
+  "version": 4,
+  "final_space": true
+}
