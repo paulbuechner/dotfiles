@@ -1,0 +1,34 @@
+#!/bin/sh
+# Run via `yadm bootstrap`; also offered automatically after `yadm clone`.
+#
+# yadm execs this with a plain environment: no YADM_* variables, GIT_DIR unset,
+# and `yadm` itself is not guaranteed to be on PATH yet.
+
+YADM=$(command -v yadm || echo "$HOME/.yadm-project/yadm")
+
+case "$(uname -s)" in
+MINGW* | MSYS* | CYGWIN*)
+  # Windows cannot create symlinks without elevation, so alternates must be copies.
+  "$YADM" config yadm.alt-copy true
+
+  # There is no Windows package for yadm, so put a shim for the source clone on PATH.
+  if [ ! -x "$HOME/bin/yadm" ] && [ -x "$HOME/.yadm-project/yadm" ]; then
+    mkdir -p "$HOME/bin"
+    printf '#!/bin/sh\nexec "$HOME/.yadm-project/yadm" "$@"\n' >"$HOME/bin/yadm"
+    chmod +x "$HOME/bin/yadm"
+  fi
+  ;;
+esac
+
+# Machine role drives ##class.* alternates. Stored in the repo's git config,
+# so it stays machine-local and never travels with the dotfiles.
+if [ -z "$("$YADM" config --get local.class)" ]; then
+  printf 'local.class for this machine (e.g. Work, Personal): '
+  read -r class
+  if [ -n "$class" ]; then
+    "$YADM" config local.class "$class"
+  fi
+fi
+
+# Materialise alternates and templates now that os/class are known.
+"$YADM" alt
