@@ -1,0 +1,8 @@
+# Git Bash launches login shells, and bash only auto-reads ~/.bashrc for
+# non-login shells. Source it here so both kinds of shell get the same setup.
+#
+# Managed by yadm as an ##os.Msys alternate. Edit this file, not ~/.bash_profile.
+
+[ -f ~/.bashrc ] && . ~/.bashrc
+
+true

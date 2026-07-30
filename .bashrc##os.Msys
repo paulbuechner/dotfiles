@@ -1,0 +1,14 @@
+# Git Bash on Windows. zsh is not installed here, so this covers the parts of the
+# zsh setup that still apply on this platform.
+#
+# Managed by yadm as an ##os.Msys alternate. Edit this file, not ~/.bashrc, which
+# yadm regenerates as a copy (alt-copy is on because Windows lacks symlinks).
+
+# vcpkg. Must be a native Windows path: vcpkg.exe and the CMake toolchain do not
+# understand MSYS /c/... paths, and MSYS rewrites command arguments, not env vars.
+export VCPKG_ROOT="C:/dev/vcpkg"
+
+# Same oh-my-posh theme the Mac uses.
+command -v oh-my-posh >/dev/null && eval "$(oh-my-posh init bash --config "$HOME/.mytheme.omp.json")"
+
+true
