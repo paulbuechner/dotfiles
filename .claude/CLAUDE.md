@@ -2,6 +2,12 @@
 
 - Never use emojis.
 
+## When to Commit
+
+Never commit on your own initiative. Make the changes, report what changed, and leave the commit to me.
+
+Commit when I ask. If a commit seems warranted and I have not said so — a batch of work is finished, or a risky step is coming that deserves a checkpoint — ask first rather than deciding. The same goes for history rewrites and pushes.
+
 ## Commit Authorship
 
 When committing code changes:
