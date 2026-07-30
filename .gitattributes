@@ -1,0 +1,4 @@
+# These dotfiles are consumed by Unix shells and tools. Always check out LF,
+# even on Windows, where core.autocrlf=true would otherwise write CRLF and
+# break `.config/yadm/bootstrap` with: bad interpreter: /bin/sh^M
+* text=auto eol=lf
