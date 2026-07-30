@@ -2,7 +2,9 @@
 [[ -f ~/.zsh/conda.zsh ]] && source ~/.zsh/conda.zsh
 
 # Load oh-my-posh
-eval "$(oh-my-posh init zsh --config "/Users/Paul/.mytheme.omp.json")"
+command -v oh-my-posh >/dev/null && eval "$(oh-my-posh init zsh --config "$HOME/.mytheme.omp.json")"
 
 # Load jenv
-eval "$(jenv init -)"
+command -v jenv >/dev/null && eval "$(jenv init -)"
+
+true
