@@ -2,3 +2,6 @@
 # even on Windows, where core.autocrlf=true would otherwise write CRLF and
 # break `.config/yadm/bootstrap` with: bad interpreter: /bin/sh^M
 * text=auto eol=lf
+
+# PowerShell profiles are Windows-only, so keep them CRLF in the working tree.
+*.ps1 text eol=crlf

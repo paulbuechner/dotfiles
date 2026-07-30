@@ -17,6 +17,25 @@ MINGW* | MSYS* | CYGWIN*)
     printf '#!/bin/sh\nexec "$HOME/.yadm-project/yadm" "$@"\n' >"$HOME/bin/yadm"
     chmod +x "$HOME/bin/yadm"
   fi
+
+  # Modules the PowerShell profiles depend on. Installed rather than vendored so
+  # each machine gets DLLs matching its own .NET runtime, and so no binaries end
+  # up in git history. On a bare machine PowerShellGet may prompt once to install
+  # the NuGet provider.
+  if command -v pwsh >/dev/null; then
+    pwsh -NoProfile -Command '
+      $modules = @{ Pester = "5.7.1"; PSReadLine = "2.3.6" }
+      foreach ($name in $modules.Keys) {
+        $want = [version]$modules[$name]
+        $have = Get-Module -ListAvailable -Name $name |
+                Sort-Object Version -Descending | Select-Object -First 1
+        if (-not $have -or $have.Version -lt $want) {
+          Write-Host "Installing $name >= $want"
+          Install-Module $name -MinimumVersion $want -Scope CurrentUser -Force
+        }
+      }
+    '
+  fi
   ;;
 esac
 
