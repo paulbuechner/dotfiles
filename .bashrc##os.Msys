@@ -6,7 +6,15 @@
 
 # vcpkg. Must be a native Windows path: vcpkg.exe and the CMake toolchain do not
 # understand MSYS /c/... paths, and MSYS rewrites command arguments, not env vars.
-export VCPKG_ROOT="C:/dev/vcpkg"
+# The drive differs per machine, so take the first candidate that exists rather
+# than hardcoding one and breaking the others. Add new locations here.
+for _vcpkg in D:/dev/vcpkg C:/dev/vcpkg; do
+  if [ -d "$_vcpkg" ]; then
+    export VCPKG_ROOT="$_vcpkg"
+    break
+  fi
+done
+unset _vcpkg
 
 # Same oh-my-posh theme the Mac uses.
 command -v oh-my-posh >/dev/null && eval "$(oh-my-posh init bash --config "$HOME/.mytheme.omp.json")"
