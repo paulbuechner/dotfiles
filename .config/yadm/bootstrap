@@ -18,6 +18,21 @@ MINGW* | MSYS* | CYGWIN*)
     chmod +x "$HOME/bin/yadm"
   fi
 
+  # Warp reads custom themes from a per-platform directory: ~/.warp/themes on
+  # macOS, but %APPDATA%\warp\Warp\data\themes here. Note that is Roaming, while
+  # settings.toml lives under Local. The repo keeps one copy at ~/.warp/themes,
+  # which macOS reads in place, so mirror it rather than committing each theme
+  # twice. Without this the theme names in settings.toml resolve to nothing and
+  # Warp silently falls back to a built-in theme.
+  if [ -d "$HOME/.warp/themes" ]; then
+    if [ -n "$APPDATA" ] && command -v cygpath >/dev/null; then
+      warp_themes="$(cygpath -u "$APPDATA")/warp/Warp/data/themes"
+    else
+      warp_themes="$HOME/AppData/Roaming/warp/Warp/data/themes"
+    fi
+    mkdir -p "$warp_themes" && cp -f "$HOME"/.warp/themes/*.yaml "$warp_themes"/
+  fi
+
   # Modules the PowerShell profiles depend on. Installed rather than vendored so
   # each machine gets DLLs matching its own .NET runtime, and so no binaries end
   # up in git history. On a bare machine PowerShellGet may prompt once to install
